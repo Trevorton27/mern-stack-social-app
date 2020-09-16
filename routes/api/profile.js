@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
+const Post = require('../../models/Post');
 const User = require('../../models/User');
 const { body, validationResult } = require('express-validator');
 const request = require('request');
@@ -73,11 +74,11 @@ router.post(
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
-    if (skills) {
-      Array.isArray(skills)
-        ? skills
-        : skills.split(',').map((skill) => ' ' + skill.trim());
-    }
+    profileFields.skills = Array.isArray(skills) ? skills : null;
+    // ? skills
+    // : skills.split(',').map((skill) => ' ' + skill.trim());
+
+    console.log('profileFields: ', profileFields);
 
     //build social object
     profileFields.social = {};
@@ -86,6 +87,31 @@ router.post(
     if (facebook) profileFields.social.facebook = facebook;
     if (linkedin) profileFields.social.linkedin = linkedin;
     if (instagram) profileFields.social.instagram = instagram;
+
+    // const profileFields = {
+    //   user: req.user.id,
+    //   company,
+    //   location,
+    //   website:
+    //     website && website !== ''
+    //       ? normalize(website, { forceHttps: true })
+    //       : '',
+    //   bio,
+    //   skills: Array.isArray(skills)
+    //     ? skills
+    //     : skills.split(',').map((skill) => ' ' + skill.trim()),
+    //   status,
+    //   githubusername
+    // };
+
+    // Build social object and add to profileFields
+    // const socialfields = { youtube, twitter, instagram, linkedin, facebook };
+
+    // for (const [key, value] of Object.entries(socialfields)) {
+    //   if (value && value.length > 0)
+    //     socialfields[key] = normalize(value, { forceHttps: true });
+    // }
+    // profileFields.social = socialfields;
 
     try {
       let profile = await Profile.findOne({
@@ -162,8 +188,8 @@ router.get('/user/:user_id', async (req, res) => {
 //@access Private
 router.delete('/', auth, async (req, res) => {
   try {
-    //@todo -- remove users posts
-
+    //Remove users posts
+    await Post.deleteMany({ user: req.user.id });
     //Remove profile
     await Profile.findOneAndRemove({
       user: req.user.id
