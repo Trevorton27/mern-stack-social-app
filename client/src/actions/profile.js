@@ -14,7 +14,7 @@ import {
 
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-    const res = await axios.get('api/profile/me');
+    const res = await axios.get('/api/profile/me');
 
     dispatch({
       type: GET_PROFILE,
@@ -32,7 +32,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 export const getProfiles = () => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   try {
-    const res = await axios.get('api/profile');
+    const res = await axios.get('/api/profile');
 
     dispatch({
       type: GET_PROFILES,
@@ -49,13 +49,14 @@ export const getProfiles = () => async (dispatch) => {
 //get profile by id
 export const getProfileById = (userId) => async (dispatch) => {
   try {
-    const res = await axios.get(`api/profile/user/${userId}`);
+    const res = await axios.get(`/api/profile/user/${userId}`);
 
     dispatch({
       type: GET_PROFILE,
       payload: res.data
     });
   } catch (err) {
+    console.log('err is: ', err);
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
@@ -66,7 +67,7 @@ export const getProfileById = (userId) => async (dispatch) => {
 //get GitHub repos
 export const getGithubRepos = (username) => async (dispatch) => {
   try {
-    const res = await axios.get(`api/profile/github/${username}`);
+    const res = await axios.get(`/api/profile/github/${username}`);
 
     dispatch({
       type: GET_REPOS,
@@ -230,7 +231,7 @@ export const deleteAccount = () => async (dispatch) => {
     window.confirm('Are you sure? Once deleted, this action cannot be undone.')
   ) {
     try {
-      await axios.delete('api/profile');
+      await axios.delete('/api/profile');
       dispatch({
         type: CLEAR_PROFILE
       });

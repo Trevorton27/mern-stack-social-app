@@ -187,8 +187,8 @@ const EditProfile = ({
               />
             </div>
 
-            <div class='form-group social-input'>
-              <i class='fab fa-facebook fa-2x'></i>
+            <div className='form-group social-input'>
+              <i className='fab fa-facebook fa-2x'></i>
               <input
                 type='text'
                 placeholder='Facebook URL'
@@ -198,8 +198,8 @@ const EditProfile = ({
               />
             </div>
 
-            <div class='form-group social-input'>
-              <i class='fab fa-youtube fa-2x'></i>
+            <div className='form-group social-input'>
+              <i className='fab fa-youtube fa-2x'></i>
               <input
                 type='text'
                 placeholder='YouTube URL'
@@ -209,8 +209,8 @@ const EditProfile = ({
               />
             </div>
 
-            <div class='form-group social-input'>
-              <i class='fab fa-linkedin fa-2x'></i>
+            <div className='form-group social-input'>
+              <i className='fab fa-linkedin fa-2x'></i>
               <input
                 type='text'
                 placeholder='Linkedin URL'
@@ -220,8 +220,8 @@ const EditProfile = ({
               />
             </div>
 
-            <div class='form-group social-input'>
-              <i class='fab fa-instagram fa-2x'></i>
+            <div className='form-group social-input'>
+              <i className='fab fa-instagram fa-2x'></i>
               <input
                 type='text'
                 placeholder='Instagram URL'
@@ -232,8 +232,8 @@ const EditProfile = ({
             </div>
           </Fragment>
         )}
-        <input type='submit' class='btn btn-primary my-1' />.
-        <Link class='btn btn-light my-1' to='/dashboard'>
+        <input type='submit' className='btn btn-primary my-1' />.
+        <Link className='btn btn-light my-1' to='/dashboard'>
           Go Back
         </Link>
       </form>

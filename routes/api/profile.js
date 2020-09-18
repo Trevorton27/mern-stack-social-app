@@ -74,9 +74,11 @@ router.post(
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
-    profileFields.skills = Array.isArray(skills) ? skills : null;
+    profileFields.skills = Array.isArray(skills)
+      ? skills
+      : skills.split(',').map((skill) => ' ' + skill.trim());
     // ? skills
-    // : skills.split(',').map((skill) => ' ' + skill.trim());
+    // : ;
 
     console.log('profileFields: ', profileFields);
 
@@ -87,31 +89,6 @@ router.post(
     if (facebook) profileFields.social.facebook = facebook;
     if (linkedin) profileFields.social.linkedin = linkedin;
     if (instagram) profileFields.social.instagram = instagram;
-
-    // const profileFields = {
-    //   user: req.user.id,
-    //   company,
-    //   location,
-    //   website:
-    //     website && website !== ''
-    //       ? normalize(website, { forceHttps: true })
-    //       : '',
-    //   bio,
-    //   skills: Array.isArray(skills)
-    //     ? skills
-    //     : skills.split(',').map((skill) => ' ' + skill.trim()),
-    //   status,
-    //   githubusername
-    // };
-
-    // Build social object and add to profileFields
-    // const socialfields = { youtube, twitter, instagram, linkedin, facebook };
-
-    // for (const [key, value] of Object.entries(socialfields)) {
-    //   if (value && value.length > 0)
-    //     socialfields[key] = normalize(value, { forceHttps: true });
-    // }
-    // profileFields.social = socialfields;
 
     try {
       let profile = await Profile.findOne({
@@ -161,6 +138,7 @@ router.get('/', async (req, res) => {
 //@route  GET api/profile/user/:user_id
 //@desc   get profile by user ID
 //@access Public
+
 router.get('/user/:user_id', async (req, res) => {
   try {
     const profile = await Profile.findOne({
