@@ -2,18 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ProfileTop = ({
-  profile: { status, company, location, website, social },
-  user: { name, avatar }
+  profile: {
+    status,
+    company,
+    location,
+    website,
+    social,
+    user: { name, avatar }
+  }
 }) => {
   return (
     <div className='profile-top bg-primary p-2'>
       <img className='round-img my-1' src={avatar} alt='' />
       <h1 className='large'>{name}</h1>
       <p className='lead'>
-        Name
         {status} {company && <span> at {company}</span>}{' '}
       </p>
-      <p>Seattle, WA</p>
+      <p>{location}</p>
       <div className='icons my-1'>
         {website && (
           <a href={website} target='_blank' rel='noopener noreferrer'>
