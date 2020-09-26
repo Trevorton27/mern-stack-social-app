@@ -41,7 +41,7 @@ const Dashboard = ({
         <Fragment>
           <p>You haven't yet created a profile. Care to create one now?</p>
           <Link to='/create-profile' className='btn btn-primary my-1'>
-            Delete My Account Create Profile
+            Create Profile
           </Link>
         </Fragment>
       )}
